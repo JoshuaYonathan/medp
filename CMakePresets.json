@@ -1,0 +1,53 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "default",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "llvm",
+            "displayName": "LLVM",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/build/llvm",
+            "toolchainFile": "cmake/armv7em-llvm-toolchain.cmake",
+            "inherits": ["default"],
+            "cacheVariables": {
+                "CMAKE_CONFIGURATION_TYPES": "debug;release",
+                "CMAKE_EXE_LINKER_FLAGS": "-flto -Wl,-Map=output.map -T ${sourceDir}/src/core/stm32f769.ld",
+                "CMAKE_C_FLAGS_DEBUG": "-Wundef -Wall -Wextra -Wpedantic -flto -fstack-usage -fdata-sections -ffunction-sections -fmacro-prefix-map=${sourceDir}/=/ -O0 -g3 -DDEBUG=1",
+                "CMAKE_CXX_FLAGS_DEBUG": "-Wundef -Wall -Wextra -Wpedantic -flto -fstack-usage -fdata-sections -ffunction-sections -fmacro-prefix-map=${sourceDir}/=/ -O0 -g3 -DDEBUG=1",
+                "CMAKE_ASM_FLAGS_DEBUG": " -Wundef -Wall -Wextra -g3 -DDEBUG=1",
+                "CMAKE_C_FLAGS_RELEASE": "-Wundef -Wall -Wextra -Wpedantic -Werror -flto -fstack-usage -fdata-sections -ffunction-sections -fmacro-prefix-map=${sourceDir}/=/ -O3 -g3 -DDEBUG=1",
+                "CMAKE_CXX_FLAGS_RELEASE": "-Wundef -Wall -Wextra -Wpedantic -Werror -flto -fstack-usage -fdata-sections -ffunction-sections -fmacro-prefix-map=${sourceDir}/=/ -O3 -g3 -DDEBUG=1",
+                "CMAKE_ASM_FLAGS_RELEASE": "-Wundef -Wall -Wextra -Werror -g3 -DDEBUG=1"
+            }
+        },
+        {
+            "name": "gnu",
+            "displayName": "GNU",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/build/gnu",
+            "toolchainFile": "cmake/armv7em-gnu-toolchain.cmake",
+            "inherits": ["default"],
+            "cacheVariables": {
+                "CMAKE_CONFIGURATION_TYPES": "debug;release",
+                "CMAKE_EXE_LINKER_FLAGS": "-flto -Wl,-Map=output.map -T ${sourceDir}/src/core/stm32f769.ld",
+                "CMAKE_C_FLAGS_DEBUG": "-Wundef -Wall -Wextra -Wpedantic -flto -fstack-usage -fdata-sections -ffunction-sections -fmacro-prefix-map=${sourceDir}/=/ -O0 -g3 -DDEBUG=1",
+                "CMAKE_CXX_FLAGS_DEBUG": "-Wundef -Wall -Wextra -Wpedantic -flto -fstack-usage -fdata-sections -ffunction-sections -fmacro-prefix-map=${sourceDir}/=/ -O0 -g3 -DDEBUG=1",
+                "CMAKE_ASM_FLAGS_DEBUG": "-Wundef -Wall -Wextra -g3 -DDEBUG=1",
+                "CMAKE_C_FLAGS_RELEASE": "-Wundef -Wall -Wextra -Wpedantic -Werror -flto -fstack-usage -fdata-sections -ffunction-sections -fmacro-prefix-map=${sourceDir}/=/ -O3 -g3 -DDEBUG=1",
+                "CMAKE_CXX_FLAGS_RELEASE": "-Wundef -Wall -Wextra -Wpedantic -Werror -flto -fstack-usage -fdata-sections -ffunction-sections -fmacro-prefix-map=${sourceDir}/=/ -O3 -g3 -DDEBUG=1",
+                "CMAKE_ASM_FLAGS_RELEASE": "-Wundef -Wall -Wextra -Werror -g3 -DDEBUG=1"
+            }
+        }
+    ]
+}
